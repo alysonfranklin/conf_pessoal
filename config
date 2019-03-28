@@ -1,0 +1,8 @@
+# contents of $HOME/.ssh/config
+#Host dev
+#    HostName dev.example.com
+#    Port 22000
+#    User fooey
+ServerAliveInterval 5
+StrictHostKeyChecking no
+#UserKnownHostsFile=/dev/null
