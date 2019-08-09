@@ -12,9 +12,6 @@
 ZSH_THEME="agnoster"
 #ZSH_THEME="jnrowe"
 
-plugins=(zsh-autosuggestions)
-plugins=(rbenv)
-
 unsetopt nomatch
 
 export EDITOR=vim
@@ -73,6 +70,7 @@ plugins=(
   zsh-autosuggestions
   rbenv
   aws
+  zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -107,20 +105,19 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 # Configura minha chave id_rsa para o bitbucket bemobi 
-ssh-bemobi() { eval "$(ssh-agent -s) ; ssh-add ~/.ssh/id_rsa" ; eval ssh-agent ; ssh-add ~/.ssh/id_rsa}
+ssh-company() { eval "$(ssh-agent -s) ; ssh-add ~/.ssh/id_rsa" ; eval ssh-agent ; ssh-add ~/.ssh/company}
 
 # Atalho para acessar a vmware vSphere
-vmware() { rdesktop-vrdp -g 1920x1024 -u alyson.pires -N 10.5.9.10 & }
+#vmware() { rdesktop-vrdp -g 1920x1024 -u alyson.pires -N 10.5.9.10 & }
 
-# Configura minha chave alyson.private para o bitbucket pessoal 
+# Configura minha chave alyson.private para o BitBucket e GitHub pessoal 
 ssh-alyson() { eval "$(ssh-agent -s) ; ssh-add ~/.ssh/franklin" ; eval ssh-agent ; ssh-add ~/.ssh/franklin }
-#git push origin master --force
 
 # Loga na aws, basta colocar awsgo IP
 awsgo() { /usr/bin/ssh -i $HOME/.ssh/alyson.pires.pem alysonpires@"$@";}
 
-goaws() { /usr/bin/ssh -i $HOME/.ssh/nginx.pem ubuntu@"$@";}
-#goaws() { /usr/bin/ssh -i $HOME/.ssh/nginx.pem ec2-user@"$@";}
+goaws_ubuntu() { /usr/bin/ssh -i $HOME/.ssh/nginx.pem ubuntu@"$@";}
+goaws_amazon() { /usr/bin/ssh -i $HOME/.ssh/nginx.pem ec2-user@"$@";}
 
 awspull() { scp -i $HOME/.ssh/alyson.pires.pem -vr alysonpires@"$@":"$1" }
 
