@@ -68,8 +68,11 @@ export EDITOR=vim
 plugins=(
   git
   zsh-autosuggestions
+  tmux
   rbenv
   aws
+  ansible
+  zsh-completions
   zsh-syntax-highlighting
 )
 
@@ -104,31 +107,55 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
-# Configura minha chave id_rsa para o bitbucket bemobi 
-ssh-company() { eval "$(ssh-agent -s) ; ssh-add ~/.ssh/id_rsa" ; eval ssh-agent ; ssh-add ~/.ssh/company}
+# Configura minha chave company para o GitHub/Bitbucket da empresa
+ssh-company() { eval "$(ssh-agent -s) ; ssh-add ~/.ssh/company" ; eval ssh-agent ; ssh-add ~/.ssh/company}
 
 # Atalho para acessar a vmware vSphere
 #vmware() { rdesktop-vrdp -g 1920x1024 -u alyson.pires -N 10.5.9.10 & }
 
-# Configura minha chave alyson.private para o BitBucket e GitHub pessoal 
+# Configura minha chave alyson.private para o bitbucket pessoal 
 ssh-alyson() { eval "$(ssh-agent -s) ; ssh-add ~/.ssh/franklin" ; eval ssh-agent ; ssh-add ~/.ssh/franklin }
 
-# Loga na aws, basta colocar awsgo IP
+# Loga na aws, basta digitar awsgo IP
 awsgo() { /usr/bin/ssh -i $HOME/.ssh/alyson.pires.pem alysonpires@"$@";}
+alias workoff='deactivate'
 
 goaws_ubuntu() { /usr/bin/ssh -i $HOME/.ssh/nginx.pem ubuntu@"$@";}
-goaws_amazon() { /usr/bin/ssh -i $HOME/.ssh/nginx.pem ec2-user@"$@";}
+goaws_centos() { /usr/bin/ssh -i $HOME/.ssh/nginx.pem ec2-user@"$@";}
 
 awspull() { scp -i $HOME/.ssh/alyson.pires.pem -vr alysonpires@"$@":"$1" }
 
 # Loga em maquinas da alog, basta colocar alog final do IP, ex alog 177
 alog() { /usr/bin/ssh alyson.pires@10.5.9."$@";}
 
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# colored GCC warnings and errors
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
 #loga na sua maquina na bemobi (:
-bemobi() { /usr/bin/ssh alyson@10.0.0.36;}
+#bemobi() { /usr/bin/ssh alyson@10.0.0.36;}
 
 # Roda um script para configurar sua vpn (Arquivo no final do email)
-vpn() { sudo /bin/sh /home/alyson/vpc/vpc.sh;}
+#vpn() { sudo /bin/sh /home/alyson/vpc/vpc.sh;}
+
+# Monta o s3 bucket como uma partição no sistema
+#s3fs devopscourses -o use_cache=/tmp -o allow_other -o uid=1001 -o mp_umask=002 -o multireq_max=5 /s3_bucket 2>/dev/null
 
 #Configura um tunnel, da sua maquina com uma maquina na bemobi
 #Troque pelo seu usuario
@@ -142,6 +169,8 @@ jupyter-notebook() { /home/alyson/anaconda3/bin/jupyter-notebook;}
 #if [ `which tmux 2> /dev/null` -a -z "$TMUX" ]; then
 #    tmux -2 attach || tmux -2 new; exit
 #fi
+
+#export GITHUB_TOKEN=XXXXXXX
 
 echo -e "\033[01;31m===================================================================="
 echo -e "| \033[01;32mInfrastructure Analyst\033[01;31m        \033[01;32mCREATED  BY:\033[01;31m                       |"
