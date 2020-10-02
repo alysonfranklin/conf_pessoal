@@ -3,6 +3,9 @@
 autoload -Uz compinit
 compinit
 
+# Terminal produtivo
+# https://medium.com/@ivanaugustobd/seu-terminal-pode-ser-muito-muito-mais-produtivo-3159c8ef77b2
+
 # Path to your oh-my-zsh installation.
   export ZSH=/home/alyson/.oh-my-zsh
 
@@ -132,11 +135,14 @@ source $ZSH/oh-my-zsh.sh
 # Configura minha chave company para o GitHub/Bitbucket da empresa
 ssh-company() { eval "$(ssh-agent -s) ; ssh-add ~/.ssh/company" ; eval ssh-agent ; ssh-add ~/.ssh/company}
 
-# Atalho para acessar a vmware vSphere
-#vmware() { rdesktop-vrdp -g 1920x1024 -u alyson.pires -N 10.5.9.10 & }
-
 # Configura minha chave alyson.private para o bitbucket pessoal 
 ssh-alyson() { eval "$(ssh-agent -s) ; ssh-add ~/.ssh/franklin" ; eval ssh-agent ; ssh-add ~/.ssh/franklin }
+
+# Configura minha chave alyson.private para o bitbucket pessoal 
+ssh-sm() { eval "$(ssh-agent -s) ; ssh-add ~/.ssh/social_miner" ; eval ssh-agent ; ssh-add ~/.ssh/social_miner }
+
+# Atalho para acessar a vmware vSphere
+#vmware() { rdesktop-vrdp -g 1920x1024 -u alyson.pires -N 10.5.9.10 & }
 
 # converte vídeos no formato *.ts para *.mp4
 converts() { for i in *.ts; do avconv -i "$i" -strict experimental "`echo $i | sed -e "s/.ts/.mp4/g"`"; done }
@@ -145,6 +151,8 @@ converts() { for i in *.ts; do avconv -i "$i" -strict experimental "`echo $i | s
 awsgo() { /usr/bin/ssh -i $HOME/.ssh/alyson.pires.pem alysonpires@"$@";}
 alias workoff='deactivate'
 alias k='kubectl'
+
+sm_proxy() { cd /home/alyson/workspace/Company/Bitbucket/Social_Miner/socialminer-helper-bastion ; ./bastion.sh alyson_franklin }
 
 openvpn_login() {openvpn --config "$1"}
 goaws_ubuntu() { /usr/bin/ssh -i $HOME/.ssh/nginx.pem ubuntu@"$@";}
